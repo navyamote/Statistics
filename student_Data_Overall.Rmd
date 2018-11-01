@@ -1,0 +1,34 @@
+---
+title: "Overall Gap"
+author: "Navya Mote"
+date: "October 29, 2017"
+input: "CSV File"
+---
+```{r echo=FALSE}
+library(tidyverse)
+library(lattice)
+source('hw.r')
+library(gridExtra)
+
+colNames <- function(x){
+  colNam = colnames(x)
+  colInt = 1:length(colNam)
+  names(colInt) = colNam
+  return(colInt)
+}
+```
+```{r}
+studentOverall <- read.csv(file="Overallgradecompletion.csv")
+studentOverall
+```
+
+```{r echo=TRUE, fig.width=8, fig.height=12}
+ggplot(studentOverall,
+  aes(x = Overallgradecompletionrate, y = reorder(Country,Overallgradecompletionrate),
+    descend = TRUE)) +
+geom_point(shape = 21, fill = rgb(1,.55,.55),
+  col = "black",size = 3.5) +
+labs(x = "Gaps In Grade 6 Completion Rates For Developing Countries(%)",y = '',
+  title = paste0("Overall Grade Completion Rate")) + hw + scale_x_continuous(breaks=seq(20,100,10),limits=c(20,100))
+```
+

@@ -1,0 +1,44 @@
+---
+title: "Rich-Poor Gap"
+author: "Navya Mote"
+date: "October 29, 2017"
+input: "CSV File"
+---
+```{r echo=FALSE}
+library(tidyverse)
+library(lattice)
+source('hw.r')
+library(gridExtra)
+
+colNames <- function(x){
+  colNam = colnames(x)
+  colInt = 1:length(colNam)
+  names(colInt) = colNam
+  return(colInt)
+}
+```
+```{r}
+studentRichPoor <- read.csv(file="GapRichestPoorest - Copy.csv")
+studentRichPoor
+```
+
+```{r echo=TRUE, fig.width=8, fig.height=12}
+
+# stripLabs <- c(
+#   GapRichestPoorest = "GapRichestPoorest",
+#   Overall = "Overall"
+# )
+# ord <- order(studentRichPoor$GapRichestPoorest,decreasing = TRUE)
+# studentRichPoor1 <- studentRichPoor[ord,]
+
+ggplot(studentRichPoor,
+  aes(x = Values, y = reorder(Country,Values), descend = TRUE)) +
+geom_point(shape = 21, fill = "#0000CC",
+  col = "black",size = 2.5) +
+  facet_grid(Group~Gap, scale = "free",
+  labeller = labeller(varName = stripLabs)) +
+labs(x = "Percent(%)",y = '',
+  title = paste0("a.Richest-Poorest")) + hw 
+# + scale_x_continuous(breaks=seq(-10,80,10),limits=c(-10,80))
+```
+
